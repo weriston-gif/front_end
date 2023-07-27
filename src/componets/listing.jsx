@@ -26,6 +26,24 @@ const Listagem = () => {
         return `${day}/${month}/${year}`;
     };
 
+    const handleEdit = (id) => {
+
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: 'Gostaria de viualizar esse registro e edita-lo',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#d0dd1d',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sim, editar!',
+            cancelButtonText: 'Cancelar',
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                window.location.href = `/register/${id}`;
+            }
+        });
+    };
+
     const handleDelete = (id) => {
 
         Swal.fire({
@@ -51,6 +69,7 @@ const Listagem = () => {
             }
         });
     };
+
     return (
         <div className='base-container'>
             {users && users.length > 0 ? (
