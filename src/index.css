@@ -3,6 +3,7 @@
 html {
   box-sizing: border-box;
 }
+
 *,
 *:before,
 *:after {
@@ -17,6 +18,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+p {
+  color: #62fdad;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -29,6 +34,7 @@ body {
   line-height: 1.5;
   color: #121212;
 }
+
 textarea,
 input,
 button {
@@ -42,6 +48,7 @@ button {
   line-height: 1.5;
   margin: 0;
 }
+
 button {
   color: #3992ff;
   font-weight: 500;
@@ -63,20 +70,24 @@ button:active {
   align-items: flex-start;
   gap: 1rem;
 }
+
 #contact h1 form {
   display: flex;
   align-items: center;
   margin-top: 0.25rem;
 }
+
 #contact h1 form button {
   box-shadow: none;
   font-size: 1.5rem;
   font-weight: 400;
   padding: 0;
 }
+
 #contact h1 form button[value="true"] {
   color: #a4a4a4;
 }
+
 #contact h1 form button[value="true"]:hover,
 #contact h1 form button[value="false"] {
   color: #eeb004;
@@ -102,6 +113,8 @@ form[action$="destroy"] button {
   display: flex;
   height: 100%;
   width: 100%;
+  background-color: #333;
+
 }
 
 #sidebar {
@@ -112,7 +125,7 @@ form[action$="destroy"] button {
   flex-direction: column;
 }
 
-#sidebar > * {
+#sidebar>* {
   padding-left: 2rem;
   padding-right: 2rem;
 }
@@ -136,7 +149,7 @@ form[action$="destroy"] button {
   top: 1px;
 }
 
-#sidebar > div {
+#sidebar>div {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -145,11 +158,11 @@ form[action$="destroy"] button {
   border-bottom: 1px solid #e3e3e3;
 }
 
-#sidebar > div form {
+#sidebar>div form {
   position: relative;
 }
 
-#sidebar > div form input[type="search"] {
+#sidebar>div form input[type="search"] {
   width: 100%;
   padding-left: 2rem;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='%23999' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' /%3E%3C/svg%3E");
@@ -159,7 +172,7 @@ form[action$="destroy"] button {
   position: relative;
 }
 
-#sidebar > div form input[type="search"].loading {
+#sidebar>div form input[type="search"].loading {
   background-image: none;
 }
 
@@ -177,6 +190,7 @@ form[action$="destroy"] button {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -192,6 +206,7 @@ form[action$="destroy"] button {
   float: right;
   color: #eeb004;
 }
+
 #sidebar nav a.active span {
   color: inherit;
 }
@@ -199,6 +214,7 @@ form[action$="destroy"] button {
 i {
   color: #818181;
 }
+
 #sidebar nav .active i {
   color: inherit;
 }
@@ -264,11 +280,11 @@ i {
   line-height: 1.2;
 }
 
-#contact h1 + p {
+#contact h1+p {
   margin: 0;
 }
 
-#contact h1 + p + p {
+#contact h1+p+p {
   white-space: break-spaces;
 }
 
@@ -283,6 +299,7 @@ i {
   color: #3992ff;
   text-decoration: none;
 }
+
 #contact a[href*="twitter"]:hover {
   text-decoration: underline;
 }
@@ -296,7 +313,7 @@ i {
   object-fit: cover;
 }
 
-#contact h1 ~ div {
+#contact h1~div {
   display: flex;
   gap: 0.5rem;
   margin: 1rem 0;
@@ -308,21 +325,26 @@ i {
   flex-direction: column;
   gap: 1rem;
 }
-#contact-form > p:first-child {
+
+#contact-form>p:first-child {
   margin: 0;
   padding: 0;
 }
-#contact-form > p:first-child > :nth-child(2) {
+
+#contact-form>p:first-child> :nth-child(2) {
   margin-right: 1rem;
 }
-#contact-form > p:first-child,
+
+#contact-form>p:first-child,
 #contact-form label {
   display: flex;
 }
+
 #contact-form p:first-child span,
 #contact-form label span {
   width: 8rem;
 }
+
 #contact-form p:first-child input,
 #contact-form label input,
 #contact-form label textarea {
@@ -381,4 +403,10 @@ i {
   align-items: center;
   justify-content: center;
   width: 100%;
+}
+
+
+.content-container {
+  margin-top: 10vh;
+  /* Defina a altura do header (10vh ou o valor que preferir) para garantir a margem correta */
 }

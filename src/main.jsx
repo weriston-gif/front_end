@@ -8,6 +8,8 @@ import "./index.css";
 import Home from "./routes/home";
 import Register from "./routes/register";
 import ErrorPage from "./error-page";
+import 'sweetalert2/dist/sweetalert2.css';
+
 
 const router = createBrowserRouter([
   {
