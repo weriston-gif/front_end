@@ -55,7 +55,7 @@ const Formulario = () => {
   };
 
   return (
-    <div className="formulario-container mt-2">
+    <div className="base-container mt-2">
       <form onSubmit={handleSubmit} className="">
         <div className="row">
           <div className="col-12">
@@ -128,7 +128,7 @@ const Formulario = () => {
             </label>
           </div>
           <div className="col-6 py-4">
-            <div class="form-floating">
+            <div className="form-floating">
               <select value={formData.genero} onChange={handleChange} name="genero" className="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
                 <option value="Masculino">Masculino</option>
                 <option value="Feminino">Feminino</option>
@@ -141,7 +141,7 @@ const Formulario = () => {
         </div>
         <div className='d-flex justify-content-end '>
           
-          <button type="submit" class="btn btn-outline-primary">Enviar</button>
+          <button type="submit" className="btn btn-outline-success">Enviar</button>
         </div>
       </form>
     </div>

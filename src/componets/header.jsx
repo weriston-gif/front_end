@@ -28,6 +28,8 @@ const Header = () => {
         <ul>
           <li className={isRouteActive("/") ? "active" : ""}><NavLink to="/">Home</NavLink></li>
           <li className={isRouteActive("/register") ? "active" : ""}><NavLink to="/register">Register</NavLink></li>
+          <li className={isRouteActive("/list") ? "active" : ""}><NavLink to="/list">List</NavLink></li>
+
         </ul>
       </nav>
     </header>

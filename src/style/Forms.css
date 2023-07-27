@@ -1,9 +1,9 @@
 
 
 /* Estilo para a div que envolve o formulário */
-.formulario-container {
-    height: 500px;
-    width: 600px;
+.base-container {
+    height: auto;
+    width: auto;
     display: flex;
     align-items: center;
     justify-content: center;

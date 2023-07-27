@@ -9,7 +9,7 @@ import Home from "./routes/home";
 import Register from "./routes/register";
 import ErrorPage from "./error-page";
 import 'sweetalert2/dist/sweetalert2.css';
-
+import List from "./routes/list";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +20,11 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/list",
+    element: <List />,
     errorElement: <ErrorPage />,
   }
 ]);
