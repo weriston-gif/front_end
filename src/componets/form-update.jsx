@@ -4,8 +4,7 @@ import InputMask from 'react-input-mask';
 import '../style/Forms.css';
 import Swal from 'sweetalert2';
 import { useParams } from 'react-router-dom';
-
-
+import moment from 'moment';
 
 const FormularioEdicao = () => {
     const { id } = useParams();
@@ -18,11 +17,28 @@ const FormularioEdicao = () => {
         genero: 'Masculino',
     });
 
+    const formatDate = (date) => {
+        const dateObj = new Date(date);
+        const day = dateObj.getDate().toString().padStart(2, '0');
+        const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+        const year = dateObj.getFullYear();
+        return `${day}/${month}/${year}`;
+    };
+
+
+    const formatDateForInput = (date) => {
+        const dateObj = new Date(date);
+        const year = dateObj.getFullYear();
+        const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+        const day = dateObj.getDate().toString().padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
     useEffect(() => {
         const fetchRegistro = async () => {
             try {
                 const response = await axios.get(`http://127.0.0.1:8000/register/${id}`);
-                console.log(response.data.data)
+                console.log(response.data.data);
                 setFormData({
                     cpf: response.data.data.cpf,
                     nome: response.data.data.name,
@@ -39,13 +55,7 @@ const FormularioEdicao = () => {
         fetchRegistro();
     }, [id]);
 
-    const formatDate = (date) => {
-        const dateObj = new Date(date);
-        const day = dateObj.getDate().toString().padStart(2, '0');
-        const month = (dateObj.getMonth()).toString().padStart(2, '0');
-        const year = dateObj.getFullYear();
-        return `${day}/${month}/${year}`;
-    };
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -53,16 +63,21 @@ const FormularioEdicao = () => {
         const { cpf, nome, email, genero, dataNascimento } = formData;
         if (cpf && nome && email) {
             try {
-                const dataFormatada = formatDate(dataNascimento);
-                const response = await axios.patch(`http://127.0.0.1:8000/register/${id}`, {
-                    cpf,
-                    email,
-                    name: nome,
-                    gender: genero,
-                    data_nasc: dataFormatada
-                });
-                console.log('Dados enviados:', response.data);
-                Swal.fire('Sucesso!', 'Formulário enviado com sucesso!', 'success');
+                const currentDate = moment();
+                const selectedDate = moment(dataNascimento, 'YYYY-MM-DD');
+                if (selectedDate.isSameOrAfter(currentDate, 'day')) {
+                    Swal.fire('Erro!', 'A data deve ser anterior à data atual!', 'error');
+                } else {
+                    const response = await axios.patch(`http://127.0.0.1:8000/register/${id}`, {
+                        cpf,
+                        email,
+                        name: nome,
+                        gender: genero,
+                        data_nasc: dataNascimento
+                    });
+                    console.log('Dados enviados:', response.data);
+                    Swal.fire('Sucesso!', 'Formulário enviado com sucesso!', 'success');
+                }
             } catch (error) {
                 console.error('Erro ao enviar dados:', error.request.response);
                 const errorData = JSON.parse(error.request.response).errors;
@@ -80,15 +95,24 @@ const FormularioEdicao = () => {
         const { cpf, nome, email, genero, dataNascimento } = formData;
 
         try {
-            const response = await axios.post("https://api-teste.ip4y.com.br/cadastro", {
-                cpf,
-                email,
-                name: nome,
-                gender: genero,
-                data_nasc: dataNascimento
-            });
-            console.log('Dados enviados:', response.data);
-            Swal.fire('Sucesso!', 'Formulário enviado com sucesso!', 'success');
+
+            const currentData = new date();
+            if (dataNascimento <= currentData) {
+                Swal.fire('Erro!', 'data maior que a data atual!', 'error');
+
+            } else {
+                Swal.fire('Sucesso!', 'Formulário enviado com sucesso!', 'success');
+
+                const response = await axios.post("https://api-teste.ip4y.com.br/cadastro", {
+                    cpf,
+                    email,
+                    name: nome,
+                    gender: genero,
+                    data_nasc: dataNascimento
+                });
+                console.log('Dados enviados:', response.data);
+                Swal.fire('Sucesso!', 'Formulário enviado com sucesso!', 'success');
+            }
         } catch (error) {
             console.error('Erro ao enviar dados:', error.request.response);
             const errorData = JSON.parse(error.request.response).errors;
@@ -104,6 +128,10 @@ const FormularioEdicao = () => {
             [name]: value,
         }));
     };
+
+
+
+
     return (
         <div>
             {formData ? (
@@ -120,7 +148,7 @@ const FormularioEdicao = () => {
                                         mask="999.999.999-99"
                                         value={formData.cpf}
                                         onChange={handleChange} // Adicione esta linha
-                                        required
+
                                     />
                                 </label></div>
                             <div className="col-12">
@@ -132,7 +160,7 @@ const FormularioEdicao = () => {
                                         name="nome"
                                         value={formData.nome}
                                         onChange={handleChange} // Adicione esta linha
-                                        required
+
                                     />
                                 </label>
                             </div>
@@ -147,7 +175,7 @@ const FormularioEdicao = () => {
                                         value={formData.email}
                                         onChange={handleChange} // Adicione esta linha
                                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                                        required
+
                                     />
                                 </label>
                             </div>
@@ -159,19 +187,28 @@ const FormularioEdicao = () => {
                                         type="date"
                                         className="w-100"
                                         name="dataNascimento"
-                                        onChange={handleChange} // Adicione esta linha
-                                        required
+                                        value={formatDateForInput(formData.dataNascimento)}
+                                        onChange={handleChange}
                                     />
+
                                 </label>
                             </div>
+
                             <div className="col-6 py-4">
                                 <div className="form-floating">
-                                    <select value={formData.genero} name="genero " onChange={handleChange} className="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
+                                    <select
+                                        value={formData.genero}
+                                        name="genero"
+                                        onChange={handleChange}
+                                        className="form-select"
+                                        id="floatingSelectGrid"
+                                        aria-label="Floating label select example"
+                                    >
                                         <option value="Masculino">Masculino</option>
                                         <option value="Feminino">Feminino</option>
                                         <option value="Outros">Outros</option>
                                     </select>
-                                    <label for="floatingSelectGrid">Gênero</label>
+                                    <label htmlFor="floatingSelectGrid">Gênero</label>
                                 </div>
 
                             </div>

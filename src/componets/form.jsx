@@ -28,13 +28,12 @@ const Formulario = () => {
     const { cpf, nome, sobrenome, email, genero, dataNascimento } = formData;
     if (cpf && nome && sobrenome && email) {
       try {
-        const dataFormatada = new Date(dataNascimento).toLocaleDateString('pt-BR');
         const response = await axios.post('http://127.0.0.1:8000/register', {
           cpf,
           email,
           name: nomeCompleto,
           gender: genero,
-          data_nasc: dataFormatada,
+          data_nasc: dataNascimento,
         });
 
         console.log('Dados enviados:', response.data);
