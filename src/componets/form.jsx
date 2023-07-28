@@ -21,7 +21,7 @@ const Formulario = () => {
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
-  const handleSubmit = async (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
     const nomeCompleto = `${formData.nome} ${formData.sobrenome}`;
 
@@ -29,17 +29,15 @@ const Formulario = () => {
     if (cpf && nome && sobrenome && email) {
       try {
         const dataFormatada = new Date(dataNascimento).toLocaleDateString('pt-BR');
-
         const response = await axios.post('http://127.0.0.1:8000/register', {
           cpf,
           email,
           name: nomeCompleto,
           gender: genero,
-          data_nasc: dataFormatada
+          data_nasc: dataFormatada,
         });
 
         console.log('Dados enviados:', response.data);
-
         Swal.fire('Sucesso!', 'Formulário enviado com sucesso!', 'success');
       } catch (error) {
         console.error('Erro ao enviar dados:', error.request.response);
@@ -48,15 +46,31 @@ const Formulario = () => {
         Swal.fire('Erro!', errorMessage, 'error');
       }
     } else {
-      Swal.fire('Atenção!', 'Por favor, preencha todos os campos antes de enviar o formulário.', 'warning');
+      Swal.fire(
+        'Atenção!',
+        'Por favor, preencha todos os campos antes de enviar o formulário.',
+        'warning'
+      );
     }
+  };
 
-    
+
+
+
+  const handleClear = () => {
+    setFormData({
+      cpf: '',
+      nome: '',
+      sobrenome: '',
+      email: '',
+      dataNascimento: '',
+      genero: 'Masculino',
+    });
   };
 
   return (
     <div className="base-container mt-2">
-      <form onSubmit={handleSubmit} className="">
+      <form onSubmit={handleFormSubmit}>
         <div className="row">
           <div className="col-12">
             <label className="w-100">
@@ -139,8 +153,8 @@ const Formulario = () => {
 
           </div>
         </div>
-        <div className='d-flex justify-content-end '>
-          
+        <div className='d-flex justify-content-between '>
+          <button type="button" onClick={handleClear} className="btn btn-outline-warning">Limpar</button>
           <button type="submit" className="btn btn-outline-success">Enviar</button>
         </div>
       </form>

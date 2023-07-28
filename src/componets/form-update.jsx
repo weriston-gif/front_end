@@ -9,14 +9,13 @@ import { useParams } from 'react-router-dom';
 
 const FormularioEdicao = () => {
     const { id } = useParams();
-    const [registro, setRegistro] = useState(null);
     const [formData, setFormData] = useState({
         cpf: '',
         nome: '',
         sobrenome: '',
         email: '',
         dataNascimento: '',
-        genero: 'Masculino', 
+        genero: 'Masculino',
     });
 
     useEffect(() => {
@@ -27,7 +26,6 @@ const FormularioEdicao = () => {
                 setFormData({
                     cpf: response.data.data.cpf,
                     nome: response.data.data.name,
-                    sobrenome: response.data.data.sobrenome,
                     email: response.data.data.email,
                     dataNascimento: response.data.data.data_nasc,
                     genero: response.data.data.gender,
@@ -41,25 +39,29 @@ const FormularioEdicao = () => {
         fetchRegistro();
     }, [id]);
 
+    const formatDate = (date) => {
+        const dateObj = new Date(date);
+        const day = dateObj.getDate().toString().padStart(2, '0');
+        const month = (dateObj.getMonth()).toString().padStart(2, '0');
+        const year = dateObj.getFullYear();
+        return `${day}/${month}/${year}`;
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const { cpf, nome, sobrenome, email, genero, dataNascimento } = formData;
-        if (cpf && nome && sobrenome && email) {
+        const { cpf, nome, email, genero, dataNascimento } = formData;
+        if (cpf && nome && email) {
             try {
-                const dataFormatada = new Date(dataNascimento).toLocaleDateString('pt-BR');
-
+                const dataFormatada = formatDate(dataNascimento);
                 const response = await axios.patch(`http://127.0.0.1:8000/register/${id}`, {
                     cpf,
                     email,
-                    name: nomeCompleto,
+                    name: nome,
                     gender: genero,
                     data_nasc: dataFormatada
                 });
-
                 console.log('Dados enviados:', response.data);
-
                 Swal.fire('Sucesso!', 'Formulário enviado com sucesso!', 'success');
             } catch (error) {
                 console.error('Erro ao enviar dados:', error.request.response);
@@ -71,14 +73,20 @@ const FormularioEdicao = () => {
             Swal.fire('Atenção!', 'Por favor, preencha todos os campos antes de enviar o formulário.', 'warning');
         }
 
-
     };
 
     const handleSend = async (event) => {
         event.preventDefault();
-        try {
+        const { cpf, nome, email, genero, dataNascimento } = formData;
 
-            const response = await axios.post("https://api-teste.ip4y.com.br/cadastro", {});
+        try {
+            const response = await axios.post("https://api-teste.ip4y.com.br/cadastro", {
+                cpf,
+                email,
+                name: nome,
+                gender: genero,
+                data_nasc: dataNascimento
+            });
             console.log('Dados enviados:', response.data);
             Swal.fire('Sucesso!', 'Formulário enviado com sucesso!', 'success');
         } catch (error) {
@@ -89,11 +97,18 @@ const FormularioEdicao = () => {
         }
     };
 
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            [name]: value,
+        }));
+    };
     return (
         <div>
             {formData ? (
                 <div className="base-container mt-2">
-                    <form className="">
+                    <form onSubmit={handleSubmit} >
                         <div className="row">
                             <div className="col-12">
                                 <label className="w-100">
@@ -104,7 +119,7 @@ const FormularioEdicao = () => {
                                         name="cpf"
                                         mask="999.999.999-99"
                                         value={formData.cpf}
-
+                                        onChange={handleChange} // Adicione esta linha
                                         required
                                     />
                                 </label></div>
@@ -116,21 +131,7 @@ const FormularioEdicao = () => {
                                         type="text"
                                         name="nome"
                                         value={formData.nome}
-
-                                        required
-                                    />
-                                </label>
-                            </div>
-
-                            <div className="col-12">
-                                <label className="w-100">
-                                    Sobrenome:
-                                    <input
-                                        className="w-100"
-                                        type="text"
-                                        name="sobrenome"
-                                        value={formData.nome}
-
+                                        onChange={handleChange} // Adicione esta linha
                                         required
                                     />
                                 </label>
@@ -144,7 +145,7 @@ const FormularioEdicao = () => {
                                         name="email"
                                         className="w-100"
                                         value={formData.email}
-
+                                        onChange={handleChange} // Adicione esta linha
                                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                                         required
                                     />
@@ -158,14 +159,14 @@ const FormularioEdicao = () => {
                                         type="date"
                                         className="w-100"
                                         name="dataNascimento"
-
+                                        onChange={handleChange} // Adicione esta linha
                                         required
                                     />
                                 </label>
                             </div>
                             <div className="col-6 py-4">
                                 <div className="form-floating">
-                                    <select value={formData.genero} name="genero" className="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
+                                    <select value={formData.genero} name="genero " onChange={handleChange} className="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
                                         <option value="Masculino">Masculino</option>
                                         <option value="Feminino">Feminino</option>
                                         <option value="Outros">Outros</option>
@@ -176,8 +177,8 @@ const FormularioEdicao = () => {
                             </div>
                         </div>
                         <div className='d-flex justify-content-between '>
-                            <button type="submit" onClick={() => handleSend()} className="btn btn-outline-primary ml-3">Enviar </button>
-                            <button type="submit" onClick={() => handleSubmit()} className="btn btn-outline-success">Atualizar</button>
+                            <button type="button" onClick={() => handleSend()} className="btn btn-outline-primary ml-3">Enviar </button>
+                            <button type="submit" className="btn btn-outline-success">Atualizar</button>
 
                         </div>
                     </form>
