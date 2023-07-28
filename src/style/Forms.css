@@ -1,23 +1,20 @@
-
-
-/* Estilo para a div que envolve o formulário */
 .base-container {
-    height: auto;
-    width: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  height: auto;
+  width: auto;
+  max-height: 700px; /* Altura máxima de 700px */
+  max-width: 90%; /* Largura máxima de 90% */
+  min-height: 300px; /* Altura mínima */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   
-    /* Adicionar estilos para centralizar o container */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgb(76, 74, 74);
-    color: rgb(53, 220, 128);
-    border-radius: 2%;
-    padding: 10px;
-  }
-  
-
-  
+  /* Adicionar estilos para centralizar o container */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(76, 74, 74);
+  color: rgb(53, 220, 128);
+  border-radius: 2%;
+  padding: 10px;
+}

@@ -408,5 +408,9 @@ i {
 
 .content-container {
   margin-top: 10vh;
-  /* Defina a altura do header (10vh ou o valor que preferir) para garantir a margem correta */
+  max-height: calc(90vh - 100px); /* Limita a altura do .content-container a 90% da altura total da janela (viewport) menos a altura do header */
+  overflow: hidden; /* Impede que o conteúdo interno ultrapasse a altura máxima */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
