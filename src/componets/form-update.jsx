@@ -53,6 +53,7 @@ const FormularioEdicao = () => {
         const { cpf, nome, email, genero, dataNascimento } = formData;
         if (cpf && nome && email) {
             try {
+                const dataFormatada = formatDate(dataNascimento);
                 const response = await axios.patch(`http://127.0.0.1:8000/register/${id}`, {
                     cpf,
                     email,
@@ -96,24 +97,6 @@ const FormularioEdicao = () => {
         }
     };
 
-
-    const handleChangeDate = (e) => {
-        const timestamp = e.target.value;
-        const selectedDate = new Date(timestamp);
-        const currentDate = new Date();
-
-        if (selectedDate > currentDate) {
-            Swal.fire('A data inserida não pode ser maior que a data atual.');
-            setDate('');
-            setFormData((prevFormData) => ({ ...prevFormData, dataNascimento: '' }));
-        } else {
-            setDate(timestamp);
-            const dataFormatada = formatDate(timestamp);
-            setFormData((prevFormData) => ({ ...prevFormData, dataNascimento: dataFormatada }));
-        }
-    };
-
-
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData((prevFormData) => ({
@@ -136,7 +119,7 @@ const FormularioEdicao = () => {
                                         name="cpf"
                                         mask="999.999.999-99"
                                         value={formData.cpf}
-                                        onChange={handleChange} 
+                                        onChange={handleChange} // Adicione esta linha
                                         required
                                     />
                                 </label></div>
@@ -148,7 +131,7 @@ const FormularioEdicao = () => {
                                         type="text"
                                         name="nome"
                                         value={formData.nome}
-                                        onChange={handleChange} 
+                                        onChange={handleChange} // Adicione esta linha
                                         required
                                     />
                                 </label>
@@ -162,7 +145,7 @@ const FormularioEdicao = () => {
                                         name="email"
                                         className="w-100"
                                         value={formData.email}
-                                        onChange={handleChange} 
+                                        onChange={handleChange} // Adicione esta linha
                                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                                         required
                                     />
@@ -176,7 +159,7 @@ const FormularioEdicao = () => {
                                         type="date"
                                         className="w-100"
                                         name="dataNascimento"
-                                        onChange={handleChangeDate} 
+                                        onChange={handleChange} // Adicione esta linha
                                         required
                                     />
                                 </label>
