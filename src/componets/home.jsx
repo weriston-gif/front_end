@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 const HomeIndice = () => {
   return (
     <div className="base-container">
-      <div className="text-center">
+      <div className="text-center text-home">
         <h4>Bem-vindo ao Nosso Cadastro de Usuários!</h4>
         <p>
           Aqui você pode se divertir cadastrando novos usuários em nosso sistema e ver a lista dos usuários já cadastrados. Nossa plataforma é simples, intuitiva e cheia de recursos incríveis para facilitar a gestão dos usuários.

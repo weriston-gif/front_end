@@ -74,36 +74,38 @@ const Listagem = () => {
     return (
         <div className='base-container'>
             {users && users.length > 0 ? (
-                <table className="table table-responsive">
-                    <thead>
-                        <tr>
-                            <th>CPF</th>
-                            <th>Nome</th>
-                            <th>Email</th>
-                            <th>Data de Nascimento</th>
-                            <th>Gênero</th>
-                            <th>Visualizar</th>
-                            <th>Excluir</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {users.map((user) => (
-                            <tr key={user.id}>
-                                <td><p> {user.cpf}</p></td>
-                                <td><p>{user.name}</p></td>
-                                <td><p>{user.email}</p></td>
-                                <td><p>{formatDate(user.data_nasc)}</p></td>
-                                <td><p>{user.gender}</p></td>
-                                <td>
-                                    <button className="btn btn-outline-warning" onClick={() => handleEdit(user.id)}>Visualizar</button>
-                                </td>
-                                <td>
-                                    <button className="btn btn-outline-danger" onClick={() => handleDelete(user.id)}>Excluir</button>
-                                </td>
+                <div className="table-container overflow-scroll">
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th>CPF</th>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Data de Nascimento</th>
+                                <th>Gênero</th>
+                                <th>Visualizar</th>
+                                <th>Excluir</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {users.map((user) => (
+                                <tr key={user.id}>
+                                    <td><p> {user.cpf}</p></td>
+                                    <td><p>{user.name}</p></td>
+                                    <td><p>{user.email}</p></td>
+                                    <td><p>{formatDate(user.data_nasc)}</p></td>
+                                    <td><p>{user.gender}</p></td>
+                                    <td>
+                                        <button className="btn btn-outline-warning" onClick={() => handleEdit(user.id)}>Visualizar</button>
+                                    </td>
+                                    <td>
+                                        <button className="btn btn-outline-danger" onClick={() => handleDelete(user.id)}>Excluir</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             ) : (
                 <p>Nenhum usuário encontrado.</p>
             )}

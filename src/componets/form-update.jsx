@@ -147,7 +147,7 @@ const FormularioEdicao = () => {
                                         name="cpf"
                                         mask="999.999.999-99"
                                         value={formData.cpf}
-                                        onChange={handleChange} // Adicione esta linha
+                                        onChange={handleChange}
 
                                     />
                                 </label></div>
@@ -159,7 +159,7 @@ const FormularioEdicao = () => {
                                         type="text"
                                         name="nome"
                                         value={formData.nome}
-                                        onChange={handleChange} // Adicione esta linha
+                                        onChange={handleChange}
 
                                     />
                                 </label>
@@ -173,7 +173,7 @@ const FormularioEdicao = () => {
                                         name="email"
                                         className="w-100"
                                         value={formData.email}
-                                        onChange={handleChange} // Adicione esta linha
+                                        onChange={handleChange}
                                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
 
                                     />

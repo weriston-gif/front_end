@@ -1,13 +1,16 @@
 .base-container {
   height: auto;
   width: auto;
-  max-height: 700px; /* Altura máxima de 700px */
-  max-width: 90%; /* Largura máxima de 90% */
-  min-height: 300px; /* Altura mínima */
+  max-height: 700px;
+  /* Altura máxima de 700px */
+  max-width: 90%;
+  /* Largura máxima de 90% */
+  min-height: 300px;
+  /* Altura mínima */
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   /* Adicionar estilos para centralizar o container */
   position: absolute;
   top: 50%;
@@ -17,4 +20,39 @@
   color: rgb(53, 220, 128);
   border-radius: 2%;
   padding: 10px;
+
+
+}
+
+.base-container .text-home {}
+
+@media screen and (max-width: 768px) {
+
+  .base-container {
+    max-height: 450px;
+    /* Reduz a altura máxima para dispositivos móveis */
+    max-width: 95%;
+    /* Reduz a largura máxima para dispositivos móveis */
+    min-height: 200px;
+    /* Reduz a altura mínima para dispositivos móveis */
+    padding: 5px;
+    /* Reduz o espaçamento interno para dispositivos móveis */
+    font-size: 14px;
+    /* Ajusta o tamanho da fonte para dispositivos móveis */
+
+  }
+  .base-container .text-home {
+    max-height: 400px;
+    /* Reduz a altura máxima para dispositivos móveis */
+    max-width: 95%;
+    /* Reduz a largura máxima para dispositivos móveis */
+    min-height: 200px;
+    /* Reduz a altura mínima para dispositivos móveis */
+    padding: 5px;
+    /* Reduz o espaçamento interno para dispositivos móveis */
+    font-size: 14px;
+    /* Ajusta o tamanho da fonte para dispositivos móveis */
+
+  }
+
 }

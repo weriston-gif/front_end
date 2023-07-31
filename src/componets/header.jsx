@@ -26,9 +26,9 @@ const Header = () => {
       </div>
       <nav className={`menu ${isMenuOpen ? 'open' : ''}`}>
         <ul>
-          <li className={isRouteActive("/") ? "active" : ""}><NavLink to="/">Home</NavLink></li>
-          <li className={isRouteActive("/register") ? "active" : ""}><NavLink to="/register">Register</NavLink></li>
-          <li className={isRouteActive("/list") ? "active" : ""}><NavLink to="/list">List</NavLink></li>
+          <li className={isRouteActive("/") ? "active" : ""}><NavLink className='mx-1' to="/">Home</NavLink></li>
+          <li className={isRouteActive("/register") ? "active" : ""}><NavLink className='mx-1' to="/register">Register</NavLink></li>
+          <li className={isRouteActive("/list") ? "active" : ""}><NavLink className='mx-1'  to="/list">List</NavLink></li>
 
         </ul>
       </nav>

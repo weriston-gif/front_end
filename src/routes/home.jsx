@@ -1,5 +1,4 @@
 import Header from '../componets/header';
-import { NavLink, useLocation } from 'react-router-dom';
 import HomeIndice from '../componets/home';
 
 export default function Home() {
