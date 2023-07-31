@@ -5,4 +5,4 @@ Para usar as funcionalidades de cadastrar excluir e atualizar dados vocês preci
 
 Comand para iniciar o projeto:
 
-# npn run dev
+# npm run dev
